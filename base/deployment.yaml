@@ -1,15 +1,6 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  annotations:
-    alpha.image.policy.openshift.io/resolve-names: '*'
-    app.openshift.io/route-disabled: 'false'
-    app.openshift.io/vcs-ref: master
-    app.openshift.io/vcs-uri: 'https://github.com/rawatsunildun/movielisting'
-    deployment.kubernetes.io/revision: '8'
-    image.openshift.io/triggers: >-
-      [{"from":{"kind":"ImageStreamTag","name":"movielisting:latest","namespace":"dev-netcore-movielisting"},"fieldPath":"spec.template.spec.containers[?(@.name==\"movielisting\")].image","pause":"false"}]
-    openshift.io/generated-by: OpenShiftWebConsole
   name: movielisting
   labels:
     app: movielisting
@@ -24,22 +15,18 @@ spec:
       app: movielisting
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: movielisting
-        deploymentconfig: movielisting
     spec:
       containers:
         - name: movielisting
           image: dotnet-6.0
-          resources: {}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
           imagePullPolicy: Always
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
-      securityContext: {}
       schedulerName: default-scheduler
   strategy:
     type: RollingUpdate
