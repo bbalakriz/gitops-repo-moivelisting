@@ -17,6 +17,7 @@ spec:
     metadata:
       labels:
         app: movielisting
+        deploymentconfig: movielisting
     spec:
       containers:
         - name: movielisting
